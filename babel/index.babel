@@ -1,0 +1,63 @@
+const headerURL = "http://www.cufonfonts.com/site/makeimage?type=custom&text=FreeCodeCamp%20Leaderboard&size=48&id=20269";
+const recentList = "https://fcctop100.herokuapp.com/api/fccusers/top/recent";
+const allTimeList = "https://fcctop100.herokuapp.com/api/fccusers/top/alltime";
+
+class Leaderboard extends React.Component {
+    constructor() {
+      super();
+      this.state = {
+        posts: []
+      };
+    }
+    componentDidMount() {
+      axios.get(recentList).then(res => {
+        this.setState({
+          posts: res.data
+        });
+      })
+    };
+
+    recentOnClick() {
+      axios.get(recentList).then(res => {
+          this.setState({
+            posts: res.data
+          });
+        })
+    }
+
+      allTimeOnClick() {
+        axios.get(allTimeList).then(res => {
+            this.setState({
+              posts: res.data
+            });
+          })
+      }
+
+      mapItOut() {
+        let displayList = [];
+        let listOfUsers = this.state.posts;
+        //console.log(this.state);
+        listOfUsers.map(function(item, index) {
+          displayList.push('<div className="well col-xs-4 col-xs-offset-4" key=' + index + '><div className="row"><img className="img-rounded img-responsive" style="float: left; margin: 0px 15px 15px 0px;" width="25%" src=' + item.img + ' />Name: ' + item.username + '<br />Recent: '+ item.recent +'<br />  All Time: '+ item.alltime +'</div></div>')
+        })
+       // console.log(displayList);
+       // console.log(listOfUsers);
+        return (displayList);
+      }
+      render() {
+        return (<div><div className="row text-center">
+  <img className="page-header img-rounded" src={headerURL} />
+  </div>
+  <div className="row text-center">
+    <button id="recent" className="btn btn-success" onClick={() => this.recentOnClick()}>Recent</button>
+    <button id="allTime" className="btn btn-success" onClick={() => this.allTimeOnClick()}>All Time</button>
+  </div>
+  <div id='display'>{this.state.posts.map(function(item, index) {
+          return <div className="well col-xs-4 col-xs-offset-4" key={index}><div className="row"><img className="img-rounded img-responsive" id="img" width="25%" src={item.img} />Name: {item.username}<br />Recent: {item.recent} <br />  All Time: {item.alltime}</div></div>
+          })
+        }
+        </div></div>)
+      }
+    }
+
+    ReactDOM.render(<Leaderboard />, document.getElementById("FCCL"));

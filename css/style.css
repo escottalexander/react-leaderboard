@@ -1,0 +1,32 @@
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: #1e1e52;
+}
+p {
+  color: white;
+  font-size:  28px;
+  font-family: 'Play', sans-serif;
+}
+.page-header {
+  background-color: white;
+  margin: 2%;
+  padding: 5%;
+}
+footer {
+  color: white;
+}
+div {
+  color: black;
+}
+.well {
+  text-align: center;
+  font-size: 25px;
+  height:135px;
+  width:425px;
+}
+
+#img {
+  float: left;
+    margin: 0px 15px 15px 0px;
+}
